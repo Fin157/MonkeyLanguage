@@ -9,12 +9,13 @@ internal class Program
     private static void Main(string[] args)
     {
         //Check if a file path was actually fed into the program to prevent exceptions
-        //if (args.Length < 2 || !int.TryParse(args[1], out int stackSize))
+        //if (args.Length < 2 || File.Exists(args[0]) || !int.TryParse(args[1], out int stackSize))
         //{
         //    Console.WriteLine("Invalid command line arguments.");
         //    return;
         //}
 
-        Interpreter.Interpret(Console.ReadLine(), int.Parse(Console.ReadLine()));
+        //Interpreter.Interpret(File.ReadAllText(args[0]), stackSize);
+        Interpreter.Interpret(File.ReadAllText(@"D:\Coding\Seminary\MonkeyLanguage\NumbersToThousand.txt"));
     }
 }
