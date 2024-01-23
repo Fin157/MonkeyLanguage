@@ -2,8 +2,6 @@
 
 internal class Program
 {
-    public static ushort[] stack;
-
     // Cmd parameter 1: path leading to file with Chimpfuck program
     // Cmd parameter 2: stack size (30 000 if missing)
     private static void Main(string[] args)
@@ -16,6 +14,10 @@ internal class Program
         //}
 
         //Interpreter.Interpret(File.ReadAllText(args[0]), stackSize);
-        Interpreter.Interpret(File.ReadAllText(@"D:\Coding\Seminary\MonkeyLanguage\NumbersToThousand.txt"));
+        Console.Write("Code file path: ");
+        string codeFilePath = Console.ReadLine();
+        Console.WriteLine("Stack size: ");
+        int stackSize = int.Parse(Console.ReadLine());
+        Interpreter.Interpret(File.ReadAllText(codeFilePath), stackSize);
     }
 }

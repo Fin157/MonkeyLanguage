@@ -2,6 +2,10 @@
 
 internal static class Parser
 {
+    /// <summary>
+    /// Detects cycles in lexed code, connects the corresponding cycle starts and ends and
+    /// outputs a boolean based on if all cycles are complete (no beginning and ending is missing).
+    /// </summary>
     public static bool Parse(List<string> tokens, out Dictionary<int, int> cycleMappings)
     {
         Stack<int> unclosedCycles = [];

@@ -1,3 +1,0 @@
-﻿we get two numbers as input from the user
-we are to determine which of them is bigger
-

@@ -25,19 +25,6 @@ internal static class Interpreter
         ["Oo? Oo?"] = BANANA_REWARD
     };
 
-    private static readonly Dictionary<string, string> tokensBf = new()
-    {
-        [">"] = POINTER_RIGHT,
-        ["<"] = POINTER_LEFT,
-        ["+"] = VALUE_INCREMENT,
-        ["-"] = VALUE_DECREMENT,
-        ["."] = CONSOLE_OUTPUT,
-        [","] = CONSOLE_INPUT,
-        ["["] = WHILE_NOT_ZERO_START,
-        ["]"] = WHILE_NOT_ZERO_END,
-        ["*"] = BANANA_REWARD
-    };
-
     private static ushort[] stack;
     private static int pointer;
 
@@ -81,7 +68,8 @@ internal static class Interpreter
                     Console.Write((char)stack[pointer]);
                     break;
                 case CONSOLE_INPUT:
-                    stack[pointer] = (ushort)Console.Read();
+                    Console.WriteLine("Reading input..");
+                    stack[pointer] = Console.ReadKey().KeyChar;
                     break;
                 case WHILE_NOT_ZERO_START:
                     if (stack[pointer] == 0)
@@ -92,7 +80,9 @@ internal static class Interpreter
                         i = cycleMappings[i];
                     break;
                 case BANANA_REWARD:
-                    // This instruction, ultimately, does nothing.
+                    // This instruction has been changed to be a numerical equivalent
+                    // of the cout instruction. Instead of a char, it outputs the actual value of
+                    // the active cell as a number.
                     Console.WriteLine(stack[pointer]);
                     break;
             }
