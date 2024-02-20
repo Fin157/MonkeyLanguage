@@ -2,6 +2,8 @@
 
 internal static class Interpreter
 {
+    // These fields are just internal strings representing all the possible operations our
+    // language can handle. The operation names don't have any effect on the code provided by the user.
     private const string POINTER_RIGHT = "ptrr";
     private const string POINTER_LEFT = "ptrl";
     private const string VALUE_INCREMENT = "incr";
@@ -12,6 +14,9 @@ internal static class Interpreter
     private const string WHILE_NOT_ZERO_END = "wnze";
     private const string BANANA_REWARD = "rewd";
 
+    // Changing the mappings in this dictionary change the actual keywords this language uses
+    // to understand code. The reason why the keywords aren't directly mapped to their corresponding
+    // operation is because the system is more flexible when built this way.
     private static readonly Dictionary<string, string> tokenMappings = new()
     {
         ["Oo. Oo?"] = POINTER_RIGHT,
@@ -33,13 +38,16 @@ internal static class Interpreter
         stack = new ushort[stackSize];
         pointer = 0;
 
-        Tokenizer test = new(tokenMappings);
-        List<string> instructions = test.Tokenize(program);
+        Tokenizer tokenizer = new(tokenMappings);
+        List<string> instructions = tokenizer.Tokenize(program);
 
         // Make sure to stop if there is a syntax error detected by the parser
-        if (!Parser.Parse(instructions, out Dictionary<int, int> cycleMappings))
+        if (!Parser.Parse(instructions, WHILE_NOT_ZERO_START, WHILE_NOT_ZERO_END, out Dictionary<int, int> cycleMappings))
             return;
 
+        // All of the instructions are defined here. In case of demand for a large amount of
+        // complicated and long instructions, this class could just define a method for each
+        // instruction and call it via the following switch statement.
         for (int i = 0; i < instructions.Count; i++)
         {
             string instr = instructions[i];
